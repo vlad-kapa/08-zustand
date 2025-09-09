@@ -86,12 +86,11 @@ const NoteForm = () => {
 
       <div className={css.actions}>
         <button
-          onClick={useRouter().back}
-          type="button"
-          className={css.cancelButton}
-        >
-          Cancel
-        </button>
+  onClick={() => router.back()}
+  type="button"
+  className={css.cancelButton}>
+  Cancel
+</button>
         <button type="submit" className={css.submitButton}>
           Create note
         </button>

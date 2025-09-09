@@ -19,14 +19,14 @@ export const generateMetadata = async ({
     openGraph: {
       title: `${slug[0]} notes`,
       description: `Notes list with tag ${slug[0]}`,
-      url: ``,
+      url: `https://08-zustand-two-self.vercel.app/notes/filter/${slug[0]}`,
       siteName: "NoteHub",
       images: [
         {
           url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
           width: 1200,
           height: 630,
-          alt: "Notes tagged with ${tag}",
+        alt: `Notes tagged with ${slug[0]}`,
         },
       ],
       type: "article",
