@@ -8,8 +8,7 @@ import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import NoteList from "@/components/NoteList/NoteList";
 import Loader from "@/components/Loader/Loader";
-import Modal from "@/components/Modal/Modal";
-import NoteForm from "@/components/NoteForm/NoteForm";
+import Link from "next/link";
 
 interface NotesClientPageProps {
   tag: string;
@@ -17,7 +16,6 @@ interface NotesClientPageProps {
 const NotesClientPage = ({ tag }: NotesClientPageProps) => {
   const [page, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [modalIsOpen, setmodalIsOpen] = useState(false);
 
   const handleSearch = useDebouncedCallback((value: string) => {
     setCurrentPage(1);
@@ -26,13 +24,6 @@ const NotesClientPage = ({ tag }: NotesClientPageProps) => {
 
   const handlePageChange = (selectedItem: { selected: number }) => {
     setCurrentPage(selectedItem.selected + 1);
-  };
-
-  const openModal = () => {
-    setmodalIsOpen(true);
-  };
-  const closeModal = () => {
-    setmodalIsOpen(false);
   };
 
   const { data, isSuccess, isLoading } = useQuery({
@@ -52,9 +43,9 @@ const NotesClientPage = ({ tag }: NotesClientPageProps) => {
             setCurrentPage={handlePageChange}
           />
         )}
-        <button onClick={openModal} type="button" className={css.button}>
+        <Link href={"/notes/action/create"} className={css.button}>
           Create note +
-        </button>
+        </Link>
       </header>
 
       {isSuccess && data && data?.notes.length > 0 ? (
@@ -63,11 +54,6 @@ const NotesClientPage = ({ tag }: NotesClientPageProps) => {
         !isLoading && <p>Tasks not found</p>
       )}
       {isLoading && !data && <Loader />}
-      {modalIsOpen && (
-        <Modal onClose={closeModal}>
-          <NoteForm onClose={closeModal} />
-        </Modal>
-      )}
     </div>
   );
 };
